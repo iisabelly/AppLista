@@ -7,6 +7,7 @@
     tools:context=".activity.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvItens"
         android:layout_width="409dp"
         android:layout_height="729dp"
         android:layout_marginStart="8dp"
@@ -26,6 +27,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:clickable="true"
+        app:backgroundTint="#E91E63"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_menu_add" />
