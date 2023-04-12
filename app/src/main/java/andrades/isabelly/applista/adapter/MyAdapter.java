@@ -24,14 +24,19 @@ public class MyAdapter extends RecyclerView.Adapter {
         this.itens = itens;
     }
 
+    // cria os elementos de interface para o item
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // lê o arquivo xml
         LayoutInflater inflater = LayoutInflater.from(mainActivity);
+        // cria o novo objeto
         View v = inflater.inflate(R.layout.item_list, parent, false);
+        // retorna a view dentro de um holder
         return new MyViewHolder(v);
     }
 
+    // recebe o viewHolder e preenche a lista na mainActivity
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MyItem myItem = itens.get(position);

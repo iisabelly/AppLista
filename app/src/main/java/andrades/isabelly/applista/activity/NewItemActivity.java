@@ -22,51 +22,65 @@ public class NewItemActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // cria a mainActivity com a capacidade de restaurar o conteúdo do estado anterior da tela
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_item);
 
+        // encontra os itens da Activity
+        Button btnAddItem = findViewById(R.id.btnAddItem);
         ImageButton imgCI = findViewById(R.id.imbCl);
+
+        // define a ação que será feita quando o botão for acionado
         imgCI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // cria a Intent
                 Intent photoPickerIntent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                // define o tipo da intent
                 photoPickerIntent.setType("image/*");
+                // define a ação da Intent e a executa
                 startActivityForResult(photoPickerIntent, PHOTO_PICKER_REQUEST);
             }
         });
-
-        Button btnAddItem = findViewById(R.id.btnAddItem);
-
+        // define a ação que será feita quando o botão for acionado
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                // condição que verifica se alguma foto foi selecionada
                 if (photoSelected == null) {
+                    // caso nenhuma foto foi selecionada, o usuário deve ser avisado para adicionar
                     Toast.makeText(NewItemActivity.this, "É necessário selecionar uma imagem",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
-
+                // encontra a caixa de texto do título e pega o conteúdo inserido
                 EditText etTitle = findViewById(R.id.etTitle);
                 String title = etTitle.getText().toString();
+                // condição que verifica se algum titulo foi inserido
                 if (title.isEmpty()) {
+                    // caso nenhum titulo foi escrito, o usuário deve ser avisado para adicionar
                     Toast.makeText(NewItemActivity.this, "É necessário inserir um título",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
-
+                // encontra a caixa de texto da descrição e pega o conteúdo inserido
                 EditText etDesc = findViewById(R.id.etDesc);
                 String description = etDesc.getText().toString();
+                // condição que verifica se alguma descrição foi inserida
                 if (description.isEmpty()) {
+                    // caso nenhuma descrição foi escrito, o usuário deve ser avisado para adicionar
                     Toast.makeText(NewItemActivity.this, "É necessário inserir uma descrição",
                             Toast.LENGTH_LONG).show();
                     return;
                 }
 
+                // cria a intent
                 Intent i = new Intent();
+                // define o conteúdo da intent
                 i.setData(photoSelected);
                 i.putExtra("title", title);
                 i.putExtra("description", description);
+                // retorna o resultado para a MainActivity
                 setResult(Activity.RESULT_OK, i);
                 finish();
 
