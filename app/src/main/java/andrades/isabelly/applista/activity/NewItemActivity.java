@@ -92,10 +92,15 @@ public class NewItemActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode,
                                     @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // condição que verifica se a resposta se refere ao PHOTO_PICKER_REQUEST
         if(requestCode == PHOTO_PICKER_REQUEST) {
+            // condição que vferifica se a resposta retornou com sucesso
             if(resultCode == Activity.RESULT_OK) {
+                // "pega" a imagem selecionada pelo usuário
                 photoSelected = data.getData();
+                // encontra a imageView na activity
                 ImageView imvfotoPreview = findViewById(R.id.imvPhotoPreview);
+                // define o conteúdo da imageView como a foto escolhida
                 imvfotoPreview.setImageURI(photoSelected);
 
             }

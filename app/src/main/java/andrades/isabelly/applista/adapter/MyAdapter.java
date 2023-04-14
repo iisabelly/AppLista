@@ -39,16 +39,18 @@ public class MyAdapter extends RecyclerView.Adapter {
     // recebe o viewHolder e preenche a lista na mainActivity
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
         MyItem myItem = itens.get(position);
         View v = holder.itemView;
 
+        // encontra os itens na view
         ImageView imvFoto = v.findViewById(R.id.imvPhoto);
-        imvFoto.setImageURI(myItem.photo);
-
         TextView tvTitle = v.findViewById(R.id.tvTitle);
-        tvTitle.setText(myItem.title);
-
         TextView tvDesc = v.findViewById(R.id.tvDesc);
+
+        // define o conteúdo dos itens
+        imvFoto.setImageURI(myItem.photo);
+        tvTitle.setText(myItem.title);
         tvDesc.setText(myItem.description);
 
     }

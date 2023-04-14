@@ -36,17 +36,22 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView rvItens = findViewById(R.id.rvItens);
         FloatingActionButton favAddItem = findViewById(R.id.fabAddNewItem);
 
-
+        // cria myAdapter para salvar conteúdo da lista da mainActivity
         myAdapter  = new MyAdapter(this, itens);
+        // define o myAdapter como o adapter da lista da mainActivity
         rvItens.setAdapter(myAdapter);
-
+        // define que a lista tem itens com o tamanho fixo
         rvItens.setHasFixedSize(true);
 
+        // cria o layoutManager para a lista, que é responsável por dispor os itens na activity
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        // define o layoutManager como o manager da lista da mainActivity
         rvItens.setLayoutManager(layoutManager);
 
+        // cria o dividerItemDecoration para a lista, que organiza os intens verticalmente
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvItens.getContext(),
                 DividerItemDecoration.VERTICAL);
+        // define a decoration dos itens como o dividerItemDecoration, que é vertical
         rvItens.addItemDecoration(dividerItemDecoration);
 
         // define a ação que será feita quando o botão for acionado
