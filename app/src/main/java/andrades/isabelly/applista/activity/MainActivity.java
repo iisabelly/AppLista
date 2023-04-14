@@ -7,18 +7,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import andrades.isabelly.applista.R;
 import andrades.isabelly.applista.adapter.MyAdapter;
 import andrades.isabelly.applista.model.MyItem;
+import andrades.isabelly.applista.model.Util;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -79,7 +82,20 @@ public class MainActivity extends AppCompatActivity {
                 // adiciona os valores inseridos pelo usuário na NewItemActivity ao item
                 myItem.title = data.getStringExtra("title");
                 myItem.description = data.getStringExtra("description");
-                myItem.photo = data.getData();
+
+                // atribui o endereço da foto escolhida a variável
+                Uri selectedPhotoUri = data.getData();
+
+                try {
+                    // carrega a foto no bitmap
+                    Bitmap photo = Util.getBitmap(MainActivity.this, selectedPhotoUri,
+                            100, 100);
+                    // define o conteúdo do item da foto como o bitmap
+                    myItem.photo = photo;
+                } catch (FileNotFoundException e){
+                    // caso o arquivo não for encontrado, imprime o erro
+                    e.printStackTrace();
+                }
 
                 // adiciona o novo item a lista de itens
                 itens.add(myItem);
