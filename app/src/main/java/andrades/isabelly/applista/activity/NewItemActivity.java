@@ -2,6 +2,7 @@ package andrades.isabelly.applista.activity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,7 +15,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.List;
+
 import andrades.isabelly.applista.R;
+import andrades.isabelly.applista.model.MainActivityViewModel;
+import andrades.isabelly.applista.model.MyItem;
+import andrades.isabelly.applista.model.NewItemActivityViewModel;
 
 public class NewItemActivity extends AppCompatActivity {
     static int PHOTO_PICKER_REQUEST = 1;
@@ -25,6 +31,18 @@ public class NewItemActivity extends AppCompatActivity {
         // cria a mainActivity com a capacidade de restaurar o conteúdo do estado anterior da tela
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_item);
+
+        // cria a view model para a new item activity que vai guardar os itens
+        NewItemActivityViewModel vm = new ViewModelProvider(this).get(NewItemActivityViewModel.class);
+
+        // "pega" o endereço da imagem na view model da tela
+        Uri selectPhotoLocation = vm.getSelectPhotoLocation();
+
+        // se nenhuma foto tinha sido selecionada, vai verificar o endereço da foto selecionada na Image View
+        if(selectPhotoLocation != null) {
+            ImageView imvPhotoPreview = findViewById(R.id.imvPhotoPreview);
+            imvPhotoPreview.setImageURI(selectPhotoLocation);
+        }
 
         // encontra os itens da Activity
         Button btnAddItem = findViewById(R.id.btnAddItem);
@@ -96,6 +114,20 @@ public class NewItemActivity extends AppCompatActivity {
         if(requestCode == PHOTO_PICKER_REQUEST) {
             // condição que vferifica se a resposta retornou com sucesso
             if(resultCode == Activity.RESULT_OK) {
+
+                // "pega" o endereço da imagem
+                Uri photoSelected = data.getData();
+
+                // encontra a Image View na tela
+                ImageView imvPhotoPreview = findViewById(R.id.imvPhotoPreview);
+                // define o a imagem no Image View por meio do endereço
+                imvPhotoPreview.setImageURI(photoSelected);
+
+                // cria a view model para a new item activity que vai guardar os itens
+                NewItemActivityViewModel vm = new ViewModelProvider(this).get(NewItemActivityViewModel.class);
+                // define o endereço da foto selecionada na view model
+                vm.setSelectPhotoLocation(photoSelected);
+
                 // "pega" a imagem selecionada pelo usuário
                 photoSelected = data.getData();
                 // encontra a imageView na activity

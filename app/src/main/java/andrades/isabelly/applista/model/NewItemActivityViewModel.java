@@ -9,6 +9,7 @@ public class NewItemActivityViewModel extends ViewModel {
 
     // retorna o endereço da imagem
     public Uri getSelectPhotoLocation() {
+
         return selectPhotoLocation;
     }
 

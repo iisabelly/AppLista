@@ -1,6 +1,7 @@
 package andrades.isabelly.applista.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import java.util.List;
 
 import andrades.isabelly.applista.R;
 import andrades.isabelly.applista.adapter.MyAdapter;
+import andrades.isabelly.applista.model.MainActivityViewModel;
 import andrades.isabelly.applista.model.MyItem;
 import andrades.isabelly.applista.model.Util;
 
@@ -38,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
         // encontra os itens da Activity
         RecyclerView rvItens = findViewById(R.id.rvItens);
         FloatingActionButton favAddItem = findViewById(R.id.fabAddNewItem);
+
+        // cria a view model para a main activity que vai guardar os itens da lista
+        MainActivityViewModel vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        List<MyItem> itens = vm.getItens();
 
         // cria myAdapter para salvar conteúdo da lista da mainActivity
         myAdapter  = new MyAdapter(this, itens);
@@ -96,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
                     // caso o arquivo não for encontrado, imprime o erro
                     e.printStackTrace();
                 }
+
+                // cria a view model para a main activity que vai guardar os itens da lista
+                MainActivityViewModel vm = new ViewModelProvider(this).get(MainActivityViewModel.class);
+                List<MyItem> itens = vm.getItens();
 
                 // adiciona o novo item a lista de itens
                 itens.add(myItem);
