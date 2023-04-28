@@ -24,7 +24,6 @@ import andrades.isabelly.applista.model.NewItemActivityViewModel;
 
 public class NewItemActivity extends AppCompatActivity {
     static int PHOTO_PICKER_REQUEST = 1;
-    Uri photoSelected = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +63,14 @@ public class NewItemActivity extends AppCompatActivity {
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // cria a view model para a new item activity que vai guardar os itens
+                NewItemActivityViewModel vm = new ViewModelProvider(NewItemActivity.this).get(NewItemActivityViewModel.class);
+
+                // "pega" o endereço da imagem na view model da tela
+                Uri selectPhotoLocation = vm.getSelectPhotoLocation();
+
                 // condição que verifica se alguma foto foi selecionada
-                if (photoSelected == null) {
+                if (selectPhotoLocation == null) {
                     // caso nenhuma foto foi selecionada, o usuário deve ser avisado para adicionar
                     Toast.makeText(NewItemActivity.this, "É necessário selecionar uma imagem",
                             Toast.LENGTH_LONG).show();
@@ -95,7 +100,7 @@ public class NewItemActivity extends AppCompatActivity {
                 // cria a intent
                 Intent i = new Intent();
                 // define o conteúdo da intent
-                i.setData(photoSelected);
+                i.setData(selectPhotoLocation);
                 i.putExtra("title", title);
                 i.putExtra("description", description);
                 // retorna o resultado para a MainActivity

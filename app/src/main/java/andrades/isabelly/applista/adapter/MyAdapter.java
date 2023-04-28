@@ -49,7 +49,7 @@ public class MyAdapter extends RecyclerView.Adapter {
         TextView tvDesc = v.findViewById(R.id.tvDesc);
 
         // define o conteúdo dos itens
-        imvFoto.setImageURI(myItem.photo);
+        imvFoto.setImageBitmap(myItem.photo);
         tvTitle.setText(myItem.title);
         tvDesc.setText(myItem.description);
 
